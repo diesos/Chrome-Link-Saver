@@ -19,10 +19,11 @@ inputBtn.addEventListener("click", function () {
 })
 
 tabBTn.addEventListener('click' , () => {
-    let getUrl = window.location.href
-    myLeads.push(getUrl)
-    localStorage.setItem("myLeads", JSON.stringify(myLeads))
-    render(myLeads)
+    chrome.tabs.query({active: true, currentWindows: true}, function(tabs) {
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        render(myLeads)
+    })
 
 })
 
